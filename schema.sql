@@ -4,7 +4,7 @@ CREATE TABLE stores(
   store_name varchar(50),
   company_id integer,
   address varchar(50),
-  zipcode integer
+  zipcode integer,
 ); 
 
 CREATE TABLE items( 
@@ -34,7 +34,7 @@ CREATE TABLE company(
 ); 
 
 CREATE TABLE Users(
-  User_id integer,
+  User_id integer NOT NULL AUTOINCREMENT,
   Username varchar(50),
   Password text,
   Last_Frequented_Store int, 

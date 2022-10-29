@@ -1,6 +1,6 @@
 -- Users
 
-Insert into Users values (1, "test1", "123456", 1, 1, "410 Purdue Mall", 47906);
+Insert into Users values ("test1", "123456", 1, 1, "410 Purdue Mall", 47906);
 
 -- Companies 
 
