@@ -1,6 +1,7 @@
 #import streamlit as st
 import streamlit as st
 import mysql.connector as conn
+import login
 from streamlit_option_menu import option_menu
 #import app_text1.py as utils
 
@@ -41,11 +42,9 @@ def main():
 
     if selected:
         if selected == 'Sign Up':
-            print("Sign Up")
-            # Sign Up page
+            print("Sign up")
         else:
-            print("Login")
-            # Login page
+            login.main()
       
     # Title 
     st.title("Boilermart")

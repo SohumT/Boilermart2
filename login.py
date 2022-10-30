@@ -7,8 +7,9 @@ from streamlit_option_menu import option_menu
 
 config = {
     'user': 'root',
-    'password': '12345678',
-    'host': '104.198.25.233'
+    'password': 'kyo12345678',
+    'host': '10.186.48.237',
+    'database': 'db1'
 }
 
 
