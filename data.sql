@@ -20,3 +20,5 @@ Insert into items values(2, 1, "apple", 0.95, 1.05, "food", 60);
 Insert into items values(3, 1, "Playstation 5", 500, 3.05, "electronics", 0);
 Insert into items values(4, 2, "croisants", 3.94, 1.25, "food", 6);
 Insert into items values(5, 3, "croisants", 3.94, 1.25, "food", 7);
+Insert into items values(6, 1, "Paper Towels", 9.5, 3.5, "household", 80);
+Insert into items values(7, 1, "Febreze", 45, 1.5, "household", 82);
