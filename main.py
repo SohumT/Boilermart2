@@ -2,7 +2,7 @@
 import streamlit as st
 import mysql.connector as conn
 from streamlit_option_menu import option_menu
-
+import app_text1.py as utils
 
 
 #from python_mysql_dbconfig import read_db_config
@@ -13,7 +13,7 @@ from PIL import Image
 def searchFunc(item):
 
     if item:
-        itemTest(item)
+        utils.itemTest(item)
         # call the page function to display the table
         
     return
