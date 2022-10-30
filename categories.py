@@ -45,15 +45,11 @@ def main():
     selected_cat = st.selectbox("search by category",options = category_list)
     cursor = cnx.cursor()
 
-    loginQuery = "SELECT * from Users A WHERE A.username = ? and A.password = ?;"
-#    cursor.execute(loginQuery, (username, password))
-
     if selected_cat is not "<SELECT A CATEGORY>":
         print(selected_cat)
 
-        #get_items = ("CALL get_item_category("+selected_cat+");")
         args = (selected_cat,)
-        
+    
         
         cursor.callproc("get_item_category", args)
 
@@ -74,15 +70,6 @@ def main():
         print(df)
         st.table(df)
 
-
-
-
-
-
-
-
-       # print(temp)
-        
 
 
 
