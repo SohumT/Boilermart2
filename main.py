@@ -6,6 +6,7 @@ import insertItem
 import itemSearch
 from streamlit_option_menu import option_menu
 import categories
+import stores
 #import app_text1.py as utils
 
 
@@ -27,7 +28,7 @@ def searchFunc(item):
 def navBar():
     selected = option_menu (
         menu_title=None,  # required
-        options=["Home", "Insert Item", "Search By Category"],  # required
+        options=["Home", "Insert Item", "Search By Category", "Search By Store"],  # required
         default_index=0,  # optional
         orientation="horizontal",
     )
@@ -59,6 +60,8 @@ def main():
             itemSearch.main()
         elif selected == 'Search By Category':
             categories.main()
+        elif selected == 'Search By Store':
+            stores.main()
         else:
             insertItem.insertPage()
             

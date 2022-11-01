@@ -63,10 +63,5 @@ def main():
         print(df)
         st.table(df)
 
-
-
-
-    
-
 if __name__ == "__main__":
     main()
