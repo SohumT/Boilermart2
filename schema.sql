@@ -4,15 +4,16 @@ CREATE TABLE stores(
   store_name varchar(50),
   company_id integer,
   address varchar(50),
-  zipcode integer,
+  zipcode integer
 ); 
 
+-- changed to autoincrement
 CREATE TABLE items( 
-  item_id integer,
+  item_id integer Not NULL AUTO_INCREMENT,
   store_id integer,
   name varchar(50),
-  price integer,
-  weight decimal(4,1),
+  price decimal(10,2),
+  weight decimal(5,2),
   category varchar(50),
   stock integer,
   PRIMARY KEY (item_id)
@@ -34,7 +35,7 @@ CREATE TABLE company(
 ); 
 
 CREATE TABLE Users(
-  User_id integer NOT NULL AUTOINCREMENT,
+  User_id integer NOT NULL AUTO_INCREMENT,
   Username varchar(50),
   Password text,
   Last_Frequented_Store int, 

@@ -3,7 +3,7 @@ from select import select
 import streamlit as st
 import mysql.connector as conn
 from streamlit_option_menu import option_menu
-from google.cloud import storage 
+#from google.cloud import storage 
 import pandas as pd
 
 #import app_text1.py as utils
@@ -65,15 +65,18 @@ def main():
         print(type(temp[0]))
         print(temp[0])
 
-        df = pd.DataFrame(data, columns =['item_id', 'store_id', 'name', 'price', 'weight', 'category', 'stock'])
+        result = []
+        for xs in data:
+            temp = []
+            for x in xs:
+                temp.append(str(x))
+            result.append(tuple(temp))
+
+        df = pd.DataFrame(result, columns =['item_id', 'store_id', 'name', 'price', 'weight', 'category', 'stock'])
 
         print(df)
         st.table(df)
 
-
-
-
-    
 
 if __name__ == "__main__":
     main()
