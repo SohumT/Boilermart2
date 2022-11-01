@@ -6,7 +6,7 @@ import mysql.connector as conn
 from streamlit_option_menu import option_menu
 import pandas as pd
 
-def insertItem(itemName, store_id, price, weight, category, quantity) -> int:
+def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.DataFrame:
     cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
                               database='db1')
     cursor = cnx.cursor()
@@ -28,8 +28,6 @@ def insertItem(itemName, store_id, price, weight, category, quantity) -> int:
     cnx.commit()
 
     cursor.close()
-
-    showItems()
 
 def getAllCategories() -> list:
     cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
@@ -62,7 +60,7 @@ def getAllStores() -> list:
 
     return store_info
 
-def showItems():
+def showItems() -> pd.DataFrame:
     cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
                               database='db1')
     cursor = cnx.cursor()
@@ -82,7 +80,7 @@ def showItems():
 
     df = pd.DataFrame(result, columns =['item_id', 'store_id', 'name', 'price', 'weight', 'category', 'stock'])
 
-    st.table(df)
+    return df
 
 def insertPage():
 
@@ -111,7 +109,8 @@ def insertPage():
     # Search Button
     if itemName and weight and quantity and price and category and store:
         st.button('Add Item', on_click=insertItem, args=(itemName, all_stores[store], price, weight, category, quantity))
-      
+        df = showItems()
+        st.dataframe(df)
     # Drop Down Menu
     #categories = ['food','electronics']
     # selected_cat = st.selectbox("search by category",options = categories)
