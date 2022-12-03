@@ -32,9 +32,20 @@ CREATE TABLE company(
   name text,
   sales integer,
   PRIMARY KEY (company_id)
-); 
+);
 
-CREATE TABLE Users(
+CREATE TABLE category(
+  category_id integer Not NULL AUTO_INCREMENT,
+  name text
+);
+
+CREATE TABLE reviews(
+  review_id integer Not NULL AUTO_INCREMENT,
+  content text,
+  rating integer
+);
+
+/*CREATE TABLE Users(
   User_id integer NOT NULL AUTO_INCREMENT,
   Username varchar(50),
   Password text,
@@ -43,5 +54,5 @@ CREATE TABLE Users(
   address text,
   zipcode integer,
   PRIMARY Key (User_id)
-);
+);*/
 
