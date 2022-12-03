@@ -20,11 +20,9 @@ CREATE TABLE items(
 );
 
 CREATE TABLE discounts(
-  store_id integer,
   item_id integer,
   sale_name varchar(50),
   percentage decimal(2,2),
-  PRIMARY KEY(store_id, item_id)
 ); 
 
 CREATE TABLE company(
