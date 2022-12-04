@@ -6,6 +6,8 @@ from streamlit_option_menu import option_menu
 #from google.cloud import storage 
 import pandas as pd
 
+import connDetails as connDet
+
 #import app_text1.py as utils
 
 #from python_mysql_dbconfig import read_db_config
@@ -15,6 +17,23 @@ from PIL import Image
 def searchFunc(item):
     if item:
         print(item)
+
+def store_dropdown():
+
+    cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
+                              database=connDet.database)
+    cursor = cnx.cursor()
+
+    query1 = ("select * from stores A;")
+    cursor.execute(query1)
+    temp = cursor.fetchall()
+    cursor.close()
+    store_info = {}
+    store_info["<SELECT A STORE>"] = -1
+    for i in temp:
+        store_info[i[1]] = i[0]
+
+    return store_info
 
     
 def main():
