@@ -6,11 +6,11 @@ import mysql.connector as conn
 from streamlit_option_menu import option_menu
 import pandas as pd
 
-import connDetails as conn
+import connDetails as connDet
 
 def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.DataFrame:
-    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
-                              database=conn.database)
+    cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
+                              database=connDet.database)
     cursor = cnx.cursor()
 
     args = (store_id, itemName, price, weight, category, quantity)
@@ -21,22 +21,24 @@ def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.Data
 
     #cursor.close()
 
-    insertQuery = "INSERT INTO items "\
-               "(item_id, store_id, name, price, weight, category, stock)"\
-               "VALUES (NULL, %s, %s, %s, %s, %s, %s)"
+    #insertQuery = "INSERT INTO items "\
+    #           "(item_id, store_id, name, price, weight, category, stock)"\
+    #           "VALUES (NULL, %s, %s, %s, %s, %s, %s)"
 
-    cursor.execute(insertQuery, args)
+    storedProcedure = "exec insertItem(%s, %s, %s, %s, %s, %s) "
+
+    cursor.execute(storedProcedure, args)
 
     cnx.commit()
 
     cursor.close()
 
 def getAllCategories() -> list:
-    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
-                              database=conn.database)
+    cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
+                              database=connDet.database)
     cursor = cnx.cursor()
 
-    query1 = ("select * from get_categories")
+    query1 = ("select name from category")
     cursor.execute(query1)
     temp = cursor.fetchall()
     cursor.close()
@@ -48,8 +50,8 @@ def getAllCategories() -> list:
 
 def getAllStores() -> list:
 
-    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
-                              database=conn.database)
+    cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
+                              database=connDet.database)
     cursor = cnx.cursor()
 
     query1 = ("select * from stores A;")
@@ -63,8 +65,8 @@ def getAllStores() -> list:
     return store_info
 
 def showItems() -> pd.DataFrame:
-    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
-                              database=conn.database)
+    cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
+                              database=connDet.database)
     cursor = cnx.cursor()
 
     queryItems = ("select * from items;")
