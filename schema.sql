@@ -22,7 +22,7 @@ CREATE TABLE items(
 CREATE TABLE discounts(
   item_id integer,
   sale_name varchar(50),
-  percentage decimal(2,2),
+  percentage decimal(2,2)
 ); 
 
 CREATE TABLE company(
