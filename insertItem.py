@@ -6,9 +6,11 @@ import mysql.connector as conn
 from streamlit_option_menu import option_menu
 import pandas as pd
 
+import connDetails as conn
+
 def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.DataFrame:
-    cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
-                              database='db1')
+    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
+                              database=conn.database)
     cursor = cnx.cursor()
 
     args = (store_id, itemName, price, weight, category, quantity)
@@ -30,8 +32,8 @@ def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.Data
     cursor.close()
 
 def getAllCategories() -> list:
-    cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
-                              database='db1')
+    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
+                              database=conn.database)
     cursor = cnx.cursor()
 
     query1 = ("select * from get_categories")
@@ -46,8 +48,8 @@ def getAllCategories() -> list:
 
 def getAllStores() -> list:
 
-    cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
-                              database='db1')
+    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
+                              database=conn.database)
     cursor = cnx.cursor()
 
     query1 = ("select * from stores A;")
@@ -61,8 +63,8 @@ def getAllStores() -> list:
     return store_info
 
 def showItems() -> pd.DataFrame:
-    cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
-                              database='db1')
+    cnx = conn.connect(user=conn.user, password=conn.password, host=conn.host, 
+                              database=conn.database)
     cursor = cnx.cursor()
 
     queryItems = ("select * from items;")
