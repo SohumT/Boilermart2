@@ -5,12 +5,13 @@ import mysql.connector as conn
 from streamlit_option_menu import option_menu
 import main
 import pandas as pd
+import connDetails
 
 config = {
-    'user': 'root',
-    'password': '12345678',
-    'host': '104.198.25.233',
-    'database': 'db1'
+    'user': connDetails.user,
+    'password': connDetails.password,
+    'host': connDetails.host,
+    'database': connDetails.database
 }
 
 def searcht(searchInput):
