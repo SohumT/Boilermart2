@@ -83,16 +83,16 @@ def insertPage():
     st.title("Insert Items")
 
     # itemName
-    itemName = st.text_input('Enter item')
+    itemName = st.text_input('Enter item', key=1)
 
     # weight
-    weight = st.text_input('Enter Weight')
+    weight = st.text_input('Enter Weight', key=2)
 
     # quantity 
-    quantity = st.text_input('What is the quanity?')
+    quantity = st.text_input('What is the quanity?', key=3)
 
     # price 
-    price = st.text_input("What is the price of the item")
+    price = st.text_input("What is the price of the item", key=4)
 
     # category 
     all_categories = getAllCategories() 

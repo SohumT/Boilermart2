@@ -42,6 +42,29 @@ def searcht(searchInput, store_id, category_id):
 
     return df
 
+def getDiscounts():
+    cnx = conn.connect(**config)
+    cursor = cnx.cursor()
+
+    get_discounts = ("SELECT discounts.sale_name, items.name, stores.store_name, items.price, (items.price * (1 - discounts.percentage)) as discounted_price from discounts, items, stores WHERE items.item_id = discounts.item_id AND stores.store_id = items.store_id ORDER BY discounts.percentage")
+    cursor.execute(get_discounts)
+
+    #retrieval = ("SELECT * FROM dis_result")
+    #cursor.execute(retrieval)
+
+    discounts = cursor.fetchall()
+
+    result = []
+    for xs in discounts:
+        temp = []
+        for x in xs:
+            temp.append(str(x))
+
+    result.append(tuple(temp))
+    df = pd.DataFrame(result, columns = ["Sale", "On", "Available at", "Price", "Discounted Price"])
+    df = df.dropColumns(['Sale', 'Price'])
+    return df
+
 def main():
     
 

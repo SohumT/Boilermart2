@@ -43,7 +43,7 @@ def loadStore(userZipcode):
 
         
 
-def findStore():
+def main():
     st.title("Find Nearby Stores")
 
     # Zipcode
@@ -51,7 +51,7 @@ def findStore():
     df = None
     # Search Button
     if user_zipcode != "":
-        st.button('Search', on_click=loadStore,
+        st.button('Search', key=5, on_click=loadStore,
                   args=(user_zipcode,))
         df = loadStore((user_zipcode))
         st.table(df)
