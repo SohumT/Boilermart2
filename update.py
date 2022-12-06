@@ -32,19 +32,21 @@ def updateItem(store_id, item_id, price):
 
     cursor.execute(query, args)
 
-    cnx.commit()
+    #cnx.commit()
 
     query = "Select price from items where store_id = %s and item_id = %s;"
     cursor.execute(query, (store_id, item_id))
     val = cursor.fetchall()
 
+    cnx.commit()
+
     cursor.close()
 
-    #prices = []
-    #for pr in val:
-        #prices.append(pr[0])
+    prices = []
+    for pr in val:
+        prices.append(pr[0])
 
-    updateStr = "Item price updated to " + price
+    updateStr = "Item price updated to $" + str(prices[0])
     st.warning(updateStr)
     return
 
