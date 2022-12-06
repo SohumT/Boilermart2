@@ -13,21 +13,29 @@ def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.Data
                               database=connDet.database)
     cursor = cnx.cursor()
 
-    args = (store_id, itemName, price, weight, category, quantity)
+    args = (itemName, store_id, price, weight, category, quantity)
 
-    print(args)
-
-    #cursor.callproc("insertItem", args)
-
-    #cursor.close()
-
-    insertQuery = "INSERT INTO items "\
-               "(item_id, store_id, name, price, weight, category, stock)"\
-               "VALUES (NULL, %s, %s, %s, %s, %s, %s)"
-
-    cursor.execute(insertQuery, args)
+    cursor.callproc("insertItem", args)
 
     cnx.commit()
+    
+    query = "Select * from items A join stores B on A.store_id = B.store_id where B.store_name = %s and A.name = %s;"
+    cursor.execute(query, (store_id, itemName))
+    res = cursor.fetchall()
+    
+    print(store_id, itemName)
+    print("res here")
+    print(res)
+
+    resList = []
+
+    if len(res) > 0:
+        for v in res:
+            resList.append(v)
+        
+        if resList[0]:
+            print(resList[0])
+            st.warning("Item Inserted")
 
     cursor.close()
 
@@ -36,7 +44,7 @@ def getAllCategories() -> list:
                               database=connDet.database)
     cursor = cnx.cursor()
 
-    query1 = ("select * from get_categories")
+    query1 = ("select name from category")
     cursor.execute(query1)
     temp = cursor.fetchall()
     cursor.close()
@@ -89,54 +97,33 @@ def insertPage():
     st.title("Insert Items")
 
     # itemName
-    itemName = st.text_input('Enter item')
+    itemName = st.text_input('Enter item', key=1)
 
     # weight
-    weight = st.text_input('Enter Weight')
+    weight = st.text_input('Enter Weight', key=2)
 
     # quantity 
-    quantity = st.text_input('What is the quanity?')
+    quantity = st.text_input('What is the quanity?', key=3)
 
     # price 
-    price = st.text_input("What is the price of the item")
+    price = st.text_input("What is the price of the item", key=4)
 
     # category 
     all_categories = getAllCategories() 
+    all_categories.insert(0,"")
     category = st.selectbox('Select a Category', options = all_categories)
 
     # stores
     all_stores = getAllStores()
-    store = st.selectbox('Choose a Store', options = all_stores.keys())
+    stores = list(all_stores.keys())
+    stores.insert(0, "")
+    store = st.selectbox('Choose a Store', options = stores)
 
     # Search Button
     if itemName and weight and quantity and price and category and store:
-        st.button('Add Item', on_click=insertItem, args=(itemName, all_stores[store], price, weight, category, quantity))
-        df = showItems()
-        st.dataframe(df)
-
-        cnx = conn.connect(user='root', password='12345678', host='104.198.25.233', 
-                              database='boilermart')
-    #deletion = ("delete from dis_result")
-    cursor = cnx.cursor()
-    #cursor.execute(deletion)
-
-    #get_discounts = ("INSERT INTO dis_result SELECT items.name, store.names, items.price * (1 - discounts.percentage) as discounted_price from discounts, items, stores WHERE items.item_id == discounts.item_id AND store.store_id == items.store_id ORDER BY discounts.percentage")
-    get_discounts = ("SELECT discounts.sale_name, items.name, stores.store_name, items.price, (items.price * (1 - discounts.percentage)) as discounted_price from discounts, items, stores WHERE items.item_id = discounts.item_id AND stores.store_id = items.store_id ORDER BY discounts.percentage")
-    cursor.execute(get_discounts)
-    #retrieval = ("SELECT * FROM dis_result")
-    #cursor.execute(retrieval)
-    discounts = cursor.fetchall()
-
-    result = []
-    for xs in discounts:
-        temp = []
-        for x in xs:
-            temp.append(str(x))
-
-        result.append(tuple(temp))
-    df = pd.DataFrame(result, columns = ["Sale", "On", "Available at", "Price", "Discounted Price"])
-    print(df)
-    st.table(df)
+        st.button('Add Item', on_click=insertItem, args=(itemName, store, price, weight, category, quantity))
+        #df = showItems()
+        #st.dataframe(df)
     # Drop Down Menu
     #categories = ['food','electronics']
     # selected_cat = st.selectbox("search by category",options = categories)
