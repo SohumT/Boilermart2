@@ -59,14 +59,11 @@ def main():
         if selected == 'Home':
             itemSearch.main()
         elif selected == 'Write Review for Stores':
-            insertReview.insertReview()
+            insertReview.insertReviewMain()
+            insertReview.searchReviewMain()
         else:
             insertItem.insertPage()
-            
-            
-    # Drop Down Menu
-    #categories = ['food','electronics']
-   # selected_cat = st.selectbox("search by category",options = categories)
+        
     
 
 if __name__ == "__main__":
