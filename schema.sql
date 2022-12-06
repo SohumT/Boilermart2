@@ -22,7 +22,7 @@ CREATE TABLE items(
 CREATE TABLE discounts(
   item_id integer,
   sale_name varchar(50),
-  percentage decimal(2,2),
+  percentage decimal(2,2)
 ); 
 
 CREATE TABLE company(
@@ -35,12 +35,14 @@ CREATE TABLE company(
 CREATE TABLE category(
   category_id integer Not NULL AUTO_INCREMENT,
   name text
+  PRIMARY Key (category_id)
 );
 
 CREATE TABLE reviews(
   review_id integer Not NULL AUTO_INCREMENT,
   content text,
-  rating integer
+  rating integer,
+  PRIMARY Key(review_id)
 );
 
 /*CREATE TABLE Users(

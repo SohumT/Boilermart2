@@ -1,11 +1,12 @@
 import streamlit as st
 import mysql.connector as conn
-import login
+
 import insertItem
 import itemSearch
 from streamlit_option_menu import option_menu
 import categories
 import stores
+import insertReview
 #import app_text1.py as utils
 
 
@@ -27,7 +28,7 @@ def searchFunc(item):
 def navBar():
     selected = option_menu (
         menu_title=None,  # required
-        options=["Home", "Insert Item", "Search By Category", "Search By Store"],  # required
+        options=["Home", "Insert Item", "Write Review for Stores"],  # required
         default_index=0,  # optional
         orientation="horizontal",
     )
@@ -57,10 +58,8 @@ def main():
     if selected:
         if selected == 'Home':
             itemSearch.main()
-        elif selected == 'Search By Category':
-            categories.main()
-        elif selected == 'Search By Store':
-            stores.main()
+        elif selected == 'Write Review for Stores':
+            insertReview.insertReview()
         else:
             insertItem.insertPage()
             
