@@ -24,7 +24,10 @@ def updateItem(store_id, item_id, price):
 
     cnx = conn.connect(**config)
     cursor = cnx.cursor()
+    cnx.start_transaction(isolation_level='REPEATABLE READ')
+
     args = (price, store_id, item_id)
+
     query = "Update items set price = %s where store_id = %s and item_id = %s;"
 
     cursor.execute(query, args)
@@ -35,13 +38,13 @@ def updateItem(store_id, item_id, price):
     cursor.execute(query, (store_id, item_id))
     val = cursor.fetchall()
 
-    cursor.close();
+    cursor.close()
 
-    prices = []
-    for pr in val:
-        prices.append(pr[0])
+    #prices = []
+    #for pr in val:
+        #prices.append(pr[0])
 
-    updateStr = "Item price updated to " + str(prices[0])
+    updateStr = "Item price updated to " + price
     st.warning(updateStr)
     return
 
