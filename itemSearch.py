@@ -23,6 +23,7 @@ def searcht(searchInput, store_id, category_id):
 
     cursor = cnx.cursor()
 
+
     args = (store_id, category_id,)
 
     cursor.callproc('get_item_category', args)
@@ -34,7 +35,10 @@ def searcht(searchInput, store_id, category_id):
     cursor.execute(searchQuery, args)
 
     output = cursor.fetchall()
+    query_del = 'DROP TABLE results'
+    cursor.execute(query_del)
     cursor.close()
+
     print(f'type: {type(output)}')
     print(f'output: {output}')
 
