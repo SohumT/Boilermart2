@@ -7,6 +7,10 @@ from streamlit_option_menu import option_menu
 import categories
 import stores
 import insertReview
+import findStore
+import discounts
+import update
+
 #import app_text1.py as utils
 
 
@@ -15,6 +19,7 @@ from PIL import Image
 
 # Search Function - Display new page from here 
 # Changed Nav Bar Page 
+
 
 def searchFunc(item):
 
@@ -28,7 +33,7 @@ def searchFunc(item):
 def navBar():
     selected = option_menu (
         menu_title=None,  # required
-        options=["Home", "Insert Item", "Write Review for Stores"],  # required
+        options=["Home", "Insert", "Update", "Store", "Sale", "Reviews"],  # required
         default_index=0,  # optional
         orientation="horizontal",
     )
@@ -53,17 +58,33 @@ def main():
     # image = Image.open('logo.png')
     # st.image(image, width=300px)
 
-    selected = navBar()
+    Home, FindStore, Sale, Insert, Update = st.tabs(["Home", "FindStore", "Sale", "Insert", "Update"])
 
-    if selected:
-        if selected == 'Home':
-            itemSearch.main()
-        elif selected == 'Write Review for Stores':
-            insertReview.insertReviewMain()
-            insertReview.searchReviewMain()
-        else:
-            insertItem.insertPage()
-        
+    # if selected:
+    #     if selected == 'Home':
+    #         itemSearch.main()
+    #     elif selected == 'Find Store':
+    #         findStore.main()
+    #     elif selected == 'Sale':
+    #         discounts.main()
+    #     else:
+    #         insertItem.insertPage()
+
+    with Home:
+        itemSearch.main()
+    with FindStore:
+        findStore.main()
+    with Sale:
+        discounts.main()
+    with Insert:
+        insertItem.insertPage()
+    with Update:
+        update.updatePage()
+
+            
+    # Drop Down Menu
+    #categories = ['food','electronics']
+   # selected_cat = st.selectbox("search by category",options = categories)
     
 
 if __name__ == "__main__":

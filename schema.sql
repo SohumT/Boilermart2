@@ -40,11 +40,11 @@ CREATE TABLE category(
 
 CREATE TABLE reviews(
   review_id integer Not NULL AUTO_INCREMENT,
+  store_name text,
   content text,
   rating integer,
   PRIMARY Key(review_id)
 );
-
 /*CREATE TABLE Users(
   User_id integer NOT NULL AUTO_INCREMENT,
   Username varchar(50),

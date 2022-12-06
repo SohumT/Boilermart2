@@ -23,6 +23,7 @@ def searcht(searchInput, store_id, category_id):
 
     cursor = cnx.cursor()
 
+
     args = (store_id, category_id,)
 
     cursor.callproc('get_item_category', args)
@@ -34,12 +35,38 @@ def searcht(searchInput, store_id, category_id):
     cursor.execute(searchQuery, args)
 
     output = cursor.fetchall()
+    query_del = 'DROP TABLE results'
+    cursor.execute(query_del)
     cursor.close()
+
     print(f'type: {type(output)}')
     print(f'output: {output}')
 
     df = pd.DataFrame(output, columns = ['item_id', 'name', 'price', 'weight', 'category', 'stock', 'store_name'])
 
+    return df
+
+def getDiscounts():
+    cnx = conn.connect(**config)
+    cursor = cnx.cursor()
+
+    get_discounts = ("SELECT discounts.sale_name, items.name, stores.store_name, items.price, (items.price * (1 - discounts.percentage)) as discounted_price from discounts, items, stores WHERE items.item_id = discounts.item_id AND stores.store_id = items.store_id ORDER BY discounts.percentage")
+    cursor.execute(get_discounts)
+
+    #retrieval = ("SELECT * FROM dis_result")
+    #cursor.execute(retrieval)
+
+    discounts = cursor.fetchall()
+
+    result = []
+    for xs in discounts:
+        temp = []
+        for x in xs:
+            temp.append(str(x))
+
+    result.append(tuple(temp))
+    df = pd.DataFrame(result, columns = ["Sale", "On", "Available at", "Price", "Discounted Price"])
+    df = df.dropColumns(['Sale', 'Price'])
     return df
 
 def main():
@@ -60,8 +87,7 @@ def main():
     selected_category_id = category_dict[categoryOption]
     
     category_dict2 = dict(map(reversed, category_dict.items()))
-
-    print(f'category_dict2.keys(): {category_dict2.keys()}')
+    
     # Search item textbox
     user_search_input = st.text_input('Enter item')
 
