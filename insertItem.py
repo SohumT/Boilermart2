@@ -15,13 +15,27 @@ def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.Data
 
     args = (itemName, store_id, price, weight, category, quantity)
 
-    print(args)
-
     cursor.callproc("insertItem", args)
 
-    cursor.close()
-
     cnx.commit()
+    
+    query = "Select * from items A join stores B on A.store_id = B.store_id where B.store_name = %s and A.name = %s;"
+    cursor.execute(query, (store_id, itemName))
+    res = cursor.fetchall()
+    
+    print(store_id, itemName)
+    print("res here")
+    print(res)
+
+    resList = []
+
+    if len(res) > 0:
+        for v in res:
+            resList.append(v)
+        
+        if resList[0]:
+            print(resList[0])
+            st.warning("Item Inserted")
 
     cursor.close()
 
@@ -96,11 +110,14 @@ def insertPage():
 
     # category 
     all_categories = getAllCategories() 
+    all_categories.insert(0,"")
     category = st.selectbox('Select a Category', options = all_categories)
 
     # stores
     all_stores = getAllStores()
-    store = st.selectbox('Choose a Store', options = all_stores.keys())
+    stores = list(all_stores.keys())
+    stores.insert(0, "")
+    store = st.selectbox('Choose a Store', options = stores)
 
     # Search Button
     if itemName and weight and quantity and price and category and store:

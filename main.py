@@ -9,6 +9,7 @@ import stores
 import insertReview
 import findStore
 import discounts
+import update
 
 #import app_text1.py as utils
 
@@ -57,7 +58,7 @@ def main():
     # image = Image.open('logo.png')
     # st.image(image, width=300px)
 
-    Home, FindStore, Sale, Insert = st.tabs(["Home", "FindStore", "Sale", "Insert"])
+    Home, FindStore, Sale, Insert, Update = st.tabs(["Home", "FindStore", "Sale", "Insert", "Update"])
 
     # if selected:
     #     if selected == 'Home':
@@ -77,6 +78,8 @@ def main():
         discounts.main()
     with Insert:
         insertItem.insertPage()
+    with Update:
+        update.updatePage()
 
             
     # Drop Down Menu

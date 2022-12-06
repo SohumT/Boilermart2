@@ -83,8 +83,7 @@ def main():
     selected_category_id = category_dict[categoryOption]
     
     category_dict2 = dict(map(reversed, category_dict.items()))
-
-    print(f'category_dict2.keys(): {category_dict2.keys()}')
+    
     # Search item textbox
     user_search_input = st.text_input('Enter item')
 
