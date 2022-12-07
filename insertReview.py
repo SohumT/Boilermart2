@@ -9,11 +9,12 @@ import connDetails
 import stores
 
 
-
-
 def insertReview(store_name, content, rating) -> pd.DataFrame:
     cnx = conn.connect(user=connDetails.user, password=connDetails.password, host=connDetails.host,
                        database=connDetails.database)
+    
+    
+    cnx.start_transaction(isolation_level='READ UNCOMMITTED')
     cursor = cnx.cursor()
 
     args = (store_name, content, rating, )
