@@ -54,5 +54,6 @@ def main():
         st.button('Search', key=5, on_click=loadStore,
                   args=(user_zipcode,))
         df = loadStore((user_zipcode))
+        df = df.set_index("store_name")
         st.table(df)
 

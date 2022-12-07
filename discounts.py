@@ -43,6 +43,6 @@ def main():
     # Title 
     st.subheader("Discounts")
 
-    df = getDiscounts()
+    df = getDiscounts().set_index("Sale")
 
     st.table(df)

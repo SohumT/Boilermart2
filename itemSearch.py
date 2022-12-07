@@ -9,6 +9,9 @@ import pandas as pd
 import connDetails
 import categories
 import stores
+#import pandas.io.formats.style
+
+
 
 config = {
     'user': connDetails.user,
@@ -16,6 +19,9 @@ config = {
     'host': connDetails.host,
     'database': connDetails.database
 }
+
+def removeborder():
+    return
 
 def searcht(searchInput, store_id, category_id):
 
@@ -48,7 +54,7 @@ def searcht(searchInput, store_id, category_id):
     print(f'output: {output}')
 
     df = pd.DataFrame(output, columns = ['item_id', 'name', 'price', 'weight', 'category', 'stock', 'store_name'])
-
+    
     return df
 
 def getDiscounts():
@@ -75,7 +81,8 @@ def getDiscounts():
     return df
 
 def main():
-    
+    #pandas.io.formats.excel.ExcelFormatter.header_style= None
+
 
     # Title 
     st.subheader("Search Section")
@@ -102,6 +109,7 @@ def main():
         for i in category_dict2.keys():
             df['category'] = df['category'].replace(str(i), str(category_dict2[i]))
         df = df.drop(df.columns[0], axis=1)
+        df = df.set_index("name")
         st.table(df)
 
         

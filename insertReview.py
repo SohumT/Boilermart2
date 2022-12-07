@@ -47,9 +47,9 @@ def insertReviewMain():
             if st.button('Upload', on_click=insertReview, args=(storeOption, review, rating), key="insertReviewMainKey") and selected_store_id and review and rating is not None:
                 st.success('This is a success message!')      
         else: 
-            st.error("Please put proper the inputs", icon=None)
+            st.error("Inputs are missing", icon=None)
     else:
-        st.error("Please put proper the inputs", icon=None)
+        st.error("Inputs are missing", icon=None)
         
 def searchReview(storeOption):
 
@@ -86,7 +86,7 @@ def searchReviewMain():
     if storeOption != "<SELECT A STORE>":
         print(f'storeOption: {storeOption}')
         if st.button("Search", on_click=searchReview, args=(storeOption, ), key="searchReviewMainKey"):
-            df = searchReview(storeOption)
+            df = searchReview(storeOption).set_index("store_name")
             df = df.drop(df.columns[0], axis=1)
             st.table(df)
             

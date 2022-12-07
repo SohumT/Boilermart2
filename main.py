@@ -10,6 +10,7 @@ import insertReview
 import findStore
 import discounts
 import update
+#import pandas.io.formats.style
 
 #import app_text1.py as utils
 
@@ -52,14 +53,14 @@ def search():
       
 
 def main():
-
+    #pandas.io.formats.excel.ExcelFormatter.header_style= None
     # Login and Signup Buttons
 
-    # image = Image.open('logo.png')
-    # st.image(image, width=300px)
+    image = Image.open('image/logo.png')
+    st.image(image, width=200)
 
     Home, FindStore, Sale, Insert, Update, Review  = st.tabs(["Home", "FindStore", "Sale", "Insert", "Update", "Review"])
-
+    
     # if selected:
     #     if selected == 'Home':
     #         itemSearch.main()
