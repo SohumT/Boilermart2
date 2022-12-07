@@ -58,7 +58,7 @@ def main():
     # image = Image.open('logo.png')
     # st.image(image, width=300px)
 
-    Home, FindStore, Sale, Insert, Update = st.tabs(["Home", "FindStore", "Sale", "Insert", "Update"])
+    Home, FindStore, Sale, Insert, Update, Review  = st.tabs(["Home", "FindStore", "Sale", "Insert", "Update", "Review"])
 
     # if selected:
     #     if selected == 'Home':
@@ -80,6 +80,9 @@ def main():
         insertItem.insertPage()
     with Update:
         update.updatePage()
+    with Review:
+        insertReview.insertReviewMain()
+        insertReview.searchReviewMain()
 
             
     # Drop Down Menu

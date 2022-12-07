@@ -33,7 +33,7 @@ def insertReviewMain():
     st.title("Write Review")
 
     store_dict = stores.store_dropdown()
-    storeOption = st.selectbox('Select a Store', store_dict.keys())
+    storeOption = st.selectbox('Select a Store', store_dict.keys(), key = "insertReviewMain")
     selected_store_id = store_dict[storeOption]
 
     review = st.text_input('Enter Review')
@@ -44,7 +44,7 @@ def insertReviewMain():
     if rating != '' and rating.isdigit():
         rating = int(rating)
         if rating <=5 and rating >= 1:
-            if st.button('Upload', on_click=insertReview, args=(storeOption, review, rating)) and selected_store_id and review and rating is not None:
+            if st.button('Upload', on_click=insertReview, args=(storeOption, review, rating), key="insertReviewMainKey") and selected_store_id and review and rating is not None:
                 st.success('This is a success message!')      
         else: 
             st.error("Please put proper the inputs", icon=None)
@@ -79,13 +79,13 @@ def searchReviewMain():
 
     # Select store
     store_dict = stores.store_dropdown()
-    storeOption = st.selectbox('Select a Store', store_dict.keys(), key = "1")
+    storeOption = st.selectbox('Select a Store', store_dict.keys(), key = "searchReviewMain")
     # selected_store_id = store_dict[storeOption]
     
     # Advanced Search Button
     if storeOption != "<SELECT A STORE>":
         print(f'storeOption: {storeOption}')
-        if st.button("Search", on_click=searchReview, args=(storeOption, )):
+        if st.button("Search", on_click=searchReview, args=(storeOption, ), key="searchReviewMainKey"):
             df = searchReview(storeOption)
             df = df.drop(df.columns[0], axis=1)
             st.table(df)
