@@ -23,20 +23,25 @@ def searcht(searchInput, store_id, category_id):
 
     cursor = cnx.cursor()
 
+    tableName = 'result'+ str(store_id) + 'w' + str(category_id)
 
-    args = (store_id, category_id,)
+    args = (store_id, category_id,tableName,)
+
+    q_make = 'DROP TABLE IF EXISTS ' + tableName
+    
+    cursor.execute(q_make)
 
     cursor.callproc('get_item_category', args)
 
     args = (searchInput, )
     print(f'searchInput: {args}')
-    searchQuery = 'SELECT i.item_id, i.name, i.price, i.weight, i.category, i.stock, s.store_name FROM results i Join stores s on i.store_id = s.store_id WHERE name like %s'
+    searchQuery = 'SELECT i.item_id, i.name, i.price, i.weight, i.category, i.stock, s.store_name FROM ' + tableName + ' i Join stores s on i.store_id = s.store_id WHERE name like %s'
     args=['%' + searchInput + '%']
     cursor.execute(searchQuery, args)
 
     output = cursor.fetchall()
-    query_del = 'DROP TABLE results'
-    cursor.execute(query_del)
+    query_del = 'DROP TABLE ' + tableName
+   # cursor.execute(query_del)
     cursor.close()
 
     print(f'type: {type(output)}')
