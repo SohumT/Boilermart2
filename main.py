@@ -55,9 +55,14 @@ def search():
 def main():
     #pandas.io.formats.excel.ExcelFormatter.header_style= None
     # Login and Signup Buttons
-
-    image = Image.open('image/logo.png')
-    st.image(image, width=200)
+    col1, col2, col3, = st.columns(3)
+    with col1:
+            st.write(' ')
+    with col2:
+        image = Image.open('image/logo.png')
+        st.image(image, width=200)
+    with col3: 
+        st.write(' ')
 
     Home, FindStore, Sale, Insert, Update, Review  = st.tabs(["Home", "FindStore", "Sale", "Insert", "Update", "Review"])
     
