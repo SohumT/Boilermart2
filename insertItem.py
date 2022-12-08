@@ -11,6 +11,9 @@ import connDetails as connDet
 def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.DataFrame:
     cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
                               database=connDet.database)
+    
+    
+    cnx.start_transaction(isolation_level='READ UNCOMMITTED')
     cursor = cnx.cursor()
 
     args = (itemName, store_id, price, weight, category, quantity)
