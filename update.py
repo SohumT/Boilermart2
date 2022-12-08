@@ -54,10 +54,14 @@ def findItemList(store_id, category_id):
 
     cnx = conn.connect(**config)
     cursor = cnx.cursor()
-    args = (store_id, category_id,)
+
+    tableName = 'result'+ str(store_id) + 'w' + str(category_id)
+    args = (store_id, category_id, tableName,)
+    query = 'DROP TABLE IF EXISTS ' + tableName
+    cursor.execute(query)
     cursor.callproc('get_item_category', args)
 
-    searchQuery = 'SELECT i.name, i.price, i.item_id From results i;'
+    searchQuery = 'SELECT i.name, i.price, i.item_id From '+ tableName+ ' i;'
     cursor.execute(searchQuery)
 
     output = cursor.fetchall()
