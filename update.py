@@ -59,7 +59,7 @@ def findItemList(store_id, category_id):
     args = (store_id, category_id, tableName,)
     query = 'DROP TABLE IF EXISTS ' + tableName
     cursor.execute(query)
-    cursor.callproc('get_item_category', args)
+    cursor.callproc('get_item_categories', args)
 
     searchQuery = 'SELECT i.name, i.price, i.item_id From '+ tableName+ ' i;'
     cursor.execute(searchQuery)
@@ -83,7 +83,7 @@ def updatePage():
     category_dict = categories.category_dropdown()
     categoryOption = st.selectbox('Select a Category', category_dict.keys(), key='cat')
     
-    if store_dict[storeOption] != -1 and category_dict[categoryOption] != -1:
+    if store_dict[storeOption] != 5000 and category_dict[categoryOption] != 5000:
         items = findItemList(store_dict[storeOption], category_dict[categoryOption])
         
         itemOption = st.selectbox('Select a Item', items.keys(), key='products')

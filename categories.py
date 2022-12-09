@@ -33,7 +33,7 @@ def category_dropdown():
     temp = cursor.fetchall()
     cursor.close()
     category_info = {}
-    category_info["<SELECT A CATEGORY>"] = -1
+    category_info["<SELECT A CATEGORY>"] = 5000
     for i in temp:
         category_info[i[1]] = i[0]
 
@@ -91,7 +91,7 @@ def main():
         args = (selected_cat,)
     
         
-        cursor.callproc("get_item_category", args)
+        cursor.callproc("get_item_categories", args)
 
         cursor.close()
 

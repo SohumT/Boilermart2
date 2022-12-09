@@ -57,9 +57,8 @@ def searchReview(storeOption):
     cnx = conn.connect(user=connDetails.user, password=connDetails.password, host=connDetails.host,
                        database=connDetails.database)
     cursor = cnx.cursor()
-    print(111111111)
+
     args = (storeOption, )
-    print(f'tutple: {storeOption}')
     
     searchQuery = 'SELECT review_id, store_name, content, rating FROM reviews WHERE store_name = %s'
     # args=['%' + storeOption + '%']
@@ -67,8 +66,6 @@ def searchReview(storeOption):
 
     output = cursor.fetchall()
     cursor.close()
-    print(f'type: {type(output)}')
-    print(f'output: {output}')
 
     df = pd.DataFrame(output, columns = ['review_id', 'store_name', 'content', 'rating'])
 
@@ -76,7 +73,7 @@ def searchReview(storeOption):
 
 def searchReviewMain():
     # Title 
-    st.subheader("Search Review")
+    st.title("Search Review")
 
     # Select store
     store_dict = stores.store_dropdown()
@@ -87,9 +84,26 @@ def searchReviewMain():
     if storeOption != "<SELECT A STORE>":
         print(f'storeOption: {storeOption}')
         if st.button("Search", on_click=searchReview, args=(storeOption, ), key="searchReviewMainKey"):
-            df = searchReview(storeOption).set_index("store_name")
-            df = df.drop(df.columns[0], axis=1)
-            st.table(df)
+            # df = searchReview(storeOption).set_index("store_name")
+            df = searchReview(storeOption)
+            # df = df.drop(df.columns[0], axis=1)
+            df = df.reset_index()
+            
+            # st.table(df)
+            col1, col2, col3 = st.columns(3, gap='small')
+
+            col1.metric("Store Name", '')
+            col2.metric("Content",  '')
+            col3.metric("Rating", '')
+            count = 0
+            
+            for index, row in df.iterrows():
+                
+                col1.metric("", row['store_name'])
+                col2.metric("",  row['content'])
+                col3.metric("", row['rating'])
+                
+                count = count + 1
             
     else:
         st.error("Please select a store", icon=None)

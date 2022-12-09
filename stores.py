@@ -29,7 +29,7 @@ def store_dropdown():
     temp = cursor.fetchall()
     cursor.close()
     store_info = {}
-    store_info["<SELECT A STORE>"] = -1
+    store_info["<SELECT A STORE>"] = 5000
     for i in temp:
         store_info[i[1]] = i[0]
 

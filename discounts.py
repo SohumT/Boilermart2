@@ -43,6 +43,28 @@ def main():
     # Title 
     st.subheader("Discounts")
 
-    df = getDiscounts().set_index("Sale")
+    df = getDiscounts()
+    df = df.reset_index()
 
-    st.table(df)
+    print(f'dfdfdd: {df}')
+    col1, col2, col3, col4, col5 = st.columns(5, gap='small')
+
+    col1.metric("Event", '')
+    col2.metric("Item",  '')
+    col3.metric("Store", '')
+    col4.metric("Price", '')
+    col5.metric("New Price", '')
+    
+    st.markdown("""---""")
+    count = 0
+    
+    for index, row in df.iterrows():
+        
+        col1.metric("", row['Sale'])
+        col2.metric("", row['On'])
+        col3.metric("", row['Available at'])
+        col4.metric("", row['Price'])
+        col5.metric("", row['Discounted Price'])
+        
+        count = count + 1
+    # st.table(df)

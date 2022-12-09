@@ -37,7 +37,7 @@ def searcht(searchInput, store_id, category_id):
     
     cursor.execute(q_make)
 
-    cursor.callproc('get_item_category', args)
+    cursor.callproc('get_item_categories', args)
 
     args = (searchInput, )
     print(f'searchInput: {args}')
@@ -108,9 +108,37 @@ def main():
         df = searcht(user_search_input, selected_store_id, selected_category_id)
         for i in category_dict2.keys():
             df['category'] = df['category'].replace(str(i), str(category_dict2[i]))
-        df = df.drop(df.columns[0], axis=1)
-        df = df.set_index("name")
-        st.table(df)
+        # df = df.drop(df.columns[0], axis=1)
+        # df = df.set_index("name")
+        df = df.reset_index()
+        df = df.astype(str)
+        
+
+        col1, col2, col3, col4, col5, col6 = st.columns(6, gap='small')
+
+        col1.metric("Item", '')
+        col2.metric("Price",  '')
+        col3.metric("Weight", '')
+        col4.metric("Category", '')
+        col5.metric("Stock", '')
+        col6.metric("Store", '')
+        st.markdown("""---""")
+        count = 0
+        
+        for index, row in df.iterrows():
+            
+            col1.metric("", row['name'])
+            col2.metric("", row['price'])
+            col3.metric("", row['weight'])
+            col4.metric("", row['category'])
+            col5.metric("", row['stock'])
+            col6.metric("", row['store_name'])    
+            
+            
+            count = count + 1
+
+        # st.table(df)
+        
 
         
 if __name__ == "__main__":
