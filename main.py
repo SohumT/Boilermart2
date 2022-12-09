@@ -1,5 +1,5 @@
 import streamlit as st
-import mysql.connector as conn
+#import mysql.connector as conn
 
 import insertItem
 import itemSearch
