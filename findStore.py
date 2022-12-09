@@ -44,15 +44,39 @@ def loadStore(userZipcode):
         
 
 def main():
+
+
+
     st.title("Find Nearby Stores")
 
     # Zipcode
     user_zipcode = st.text_input('Enter Your Zipcode')
     df = None
+
+
+
     # Search Button
     if user_zipcode != "":
         st.button('Search', key=5, on_click=loadStore,
                   args=(user_zipcode,))
         df = loadStore((user_zipcode))
-        st.table(df)
+        df = df.reset_index()
 
+
+        col1, col2, col3 = st.columns(3)
+
+        count = 0
+        for index, row in df.iterrows():
+            if count == 0:
+                col1.metric("Store Name", row['store_name'])
+                col2.metric("Address",  row['address'])
+                col3.metric("Zip Code", row['zipcode'])
+            else:
+                col1.metric("", row['store_name'])
+                col2.metric("",  row['address'])
+                col3.metric("", row['zipcode'])
+            count = count + 1
+   
+
+
+        #st.table(df)

@@ -34,7 +34,7 @@ CREATE TABLE company(
 
 CREATE TABLE category(
   category_id integer Not NULL AUTO_INCREMENT,
-  name text
+  name text,
   PRIMARY Key (category_id)
 );
 

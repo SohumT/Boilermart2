@@ -9,6 +9,9 @@ import pandas as pd
 import connDetails
 import categories
 import stores
+#import pandas.io.formats.style
+
+
 
 config = {
     'user': connDetails.user,
@@ -17,33 +20,41 @@ config = {
     'database': connDetails.database
 }
 
+def removeborder():
+    return
+
 def searcht(searchInput, store_id, category_id):
 
     cnx = conn.connect(**config)
 
     cursor = cnx.cursor()
 
+    tableName = 'result'+ str(store_id) + 'w' + str(category_id)
 
-    args = (store_id, category_id,)
+    args = (store_id, category_id,tableName,)
+
+    q_make = 'DROP TABLE IF EXISTS ' + tableName
+    
+    cursor.execute(q_make)
 
     cursor.callproc('get_item_category', args)
 
     args = (searchInput, )
     print(f'searchInput: {args}')
-    searchQuery = 'SELECT i.item_id, i.name, i.price, i.weight, i.category, i.stock, s.store_name FROM results i Join stores s on i.store_id = s.store_id WHERE name like %s'
+    searchQuery = 'SELECT i.item_id, i.name, i.price, i.weight, i.category, i.stock, s.store_name FROM ' + tableName + ' i Join stores s on i.store_id = s.store_id WHERE name like %s'
     args=['%' + searchInput + '%']
     cursor.execute(searchQuery, args)
 
     output = cursor.fetchall()
-    query_del = 'DROP TABLE results'
-    cursor.execute(query_del)
+    query_del = 'DROP TABLE ' + tableName
+   # cursor.execute(query_del)
     cursor.close()
 
     print(f'type: {type(output)}')
     print(f'output: {output}')
 
     df = pd.DataFrame(output, columns = ['item_id', 'name', 'price', 'weight', 'category', 'stock', 'store_name'])
-
+    
     return df
 
 def getDiscounts():
@@ -70,7 +81,8 @@ def getDiscounts():
     return df
 
 def main():
-    
+    #pandas.io.formats.excel.ExcelFormatter.header_style= None
+
 
     # Title 
     st.subheader("Search Section")
@@ -97,6 +109,7 @@ def main():
         for i in category_dict2.keys():
             df['category'] = df['category'].replace(str(i), str(category_dict2[i]))
         df = df.drop(df.columns[0], axis=1)
+        df = df.set_index("name")
         st.table(df)
 
         
