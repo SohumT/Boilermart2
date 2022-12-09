@@ -11,8 +11,6 @@ import findStore
 import discounts
 import update
 
-#import app_text1.py as utils
-
 
 #from python_mysql_dbconfig import read_db_config
 from PIL import Image
