@@ -13,7 +13,7 @@ def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.Data
                               database=connDet.database)
     
     
-    cnx.start_transaction(isolation_level='READ UNCOMMITTED')
+    cnx.start_transaction(isolation_level='SERIALIZABLE')
     cursor = cnx.cursor()
 
     args = (itemName, store_id, price, weight, category, quantity)
