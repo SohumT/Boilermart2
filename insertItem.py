@@ -9,6 +9,7 @@ import pandas as pd
 import connDetails as connDet
 
 def insertItem(itemName, store_id, price, weight, category, quantity) -> pd.DataFrame:
+
     cnx = conn.connect(user=connDet.user, password=connDet.password, host=connDet.host, 
                               database=connDet.database)
     
@@ -123,7 +124,7 @@ def insertPage():
     store = st.selectbox('Choose a Store', options = stores)
 
     # Search Button
-    if itemName and weight and quantity and price and category and store:
+    if itemName and weight and quantity and price and category and store and quantity > 0 and price > 0 and weight > 0:
         st.button('Add Item', on_click=insertItem, args=(itemName, store, price, weight, category, quantity))
         #df = showItems()
         #st.dataframe(df)

@@ -91,7 +91,7 @@ def updatePage():
         if itemOption:
             new_price = st.text_input("New Price", key="newP")
 
-            if new_price:
+            if new_price and new_price > 0:
                 update = st.button("Update", key='upd', on_click=updateItem, args=(store_dict[storeOption], items[itemOption], new_price))
                 del st.session_state['store']
                 del st.session_state['cat']
