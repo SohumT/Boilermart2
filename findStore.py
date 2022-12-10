@@ -87,9 +87,9 @@ def main():
     df = None
 
 
-
+    zips = ['47901','47904','47905','47909','47906','47907']
     # Search Button
-    if user_zipcode != "":
+    if user_zipcode in zips:
         if st.button('Search', key=5, on_click=loadStore,
                   args=(user_zipcode,)):
             df = loadStore((user_zipcode))
@@ -109,7 +109,6 @@ def main():
                 col3.metric("", row['zipcode'])
                 
                 count = count + 1
+    else:
+        st.error("Please verify Zipcode", icon=None)
    
-
-
-        #st.table(df)
