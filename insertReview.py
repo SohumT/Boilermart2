@@ -101,7 +101,7 @@ def searchReviewMain():
                 
                 col1.metric("", row['store_name'])
                 col2.metric("",  row['content'])
-                col3.metric("", row['rating'])
+                col3.metric("", str(row['rating'])+"/5")
                 
                 count = count + 1
             

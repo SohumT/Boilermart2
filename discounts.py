@@ -63,8 +63,8 @@ def main():
         col1.metric("", row['Sale'])
         col2.metric("", row['On'])
         col3.metric("", row['Available at'])
-        col4.metric("", row['Price'])
-        col5.metric("", row['Discounted Price'])
+        col4.metric("", "$ " + row['Price'])
+        col5.metric("", "$ " + row['Discounted Price'])
         
         count = count + 1
     # st.table(df)
